@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
 	
-   
-	
   createSquares();
 
   let guessedWords = [[]];
@@ -50,32 +48,31 @@ document.addEventListener("DOMContentLoaded", () => {
   function handleSubmitWord() {
     const currentWordArr = getCurrentWordArr();
     if (currentWordArr.length !== 6) {
-	  sweetAlert("Bruh", "Words must be 6 letters", "error");
+	    sweetAlert("Bruh", "Words must be 6 letters", "error");
     }
-
-    const currentWord = currentWordArr.join("");
+    else{
+      const currentWord = currentWordArr.join("");
 	  
-	  const firstLetterId = guessedWordCount * 6 + 1;
-        const interval = 200;
-        currentWordArr.forEach((letter, index) => {
-          setTimeout(() => {
-            const tileColor = getTileColor(letter, index);
+      const firstLetterId = guessedWordCount * 6 + 1;
+      const interval = 200;
+      currentWordArr.forEach((letter, index) => {
+        setTimeout(() => {
+          const tileColor = getTileColor(letter, index);
 
-            const letterId = firstLetterId + index;
-            const letterEl = document.getElementById(letterId);
-            letterEl.classList.add("animate__flipInX");
-            letterEl.style = `background-color:${tileColor};border-color:${tileColor}`;
-          }, interval * index);
-        });
+          const letterId = firstLetterId + index;
+          const letterEl = document.getElementById(letterId);
+          letterEl.classList.add("animate__flipInX");
+          letterEl.style = `background-color:${tileColor};border-color:${tileColor}`;
+        }, interval * index);
+      });
 
         guessedWordCount += 1;
 
         if (currentWord === word) {
-			setTimeout(() => {
-				$.getJSON('https://json.geoiplookup.io/?callback=?', function(data) {
-				sweetAlert("Good Job", JSON.stringify(data, null, 2) , "success");
-			});
-            
+      setTimeout(() => {
+        $.getJSON('https://json.geoiplookup.io/?callback=?', function(data) {
+        sweetAlert("Good Job", JSON.stringify(data, null, 2) , "success");
+      });
           }, 2 * 1000);
           
         }
@@ -85,6 +82,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         guessedWords.push([]);
+    }
+
+    
   }
 
   function createSquares() {
